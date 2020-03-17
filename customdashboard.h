@@ -14,11 +14,12 @@
 #include <QtUiPlugin/QDesignerExportWidget>
 #endif
 
-//自定义插件使用的编译器要和Qt帮助中关于Qt Creator显示的编译器一样
-//否则插件可能无法正常使用
+
 #ifdef  _MSC_VER//如果使用MSVC编译器
-#ifdef  QDESIGNER_EXPORT_WIDGETS//制作自定义插件
-#define QTLIBRARYCLASS  QDESIGNER_WIDGET_EXPORT//MSVC制作自定义插件的导出宏
+#ifdef  QDESIGNER_EXPORT_WIDGETS//QTCreator制作自定义插件
+#define QTLIBRARYCLASS  Q_DECL_EXPORT//MSVC制作自定义插件的导出宏
+#elif defined(QT_PLUGIN) //QT VS Tools制作自定义插件
+#define QTLIBRARYCLASS Q_DECL_EXPORT
 #else   //MSVC使用自定义插件的导入宏
 #define QTLIBRARYCLASS
 #endif
